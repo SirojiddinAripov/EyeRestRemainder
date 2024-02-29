@@ -7,4 +7,5 @@
     <string name="set_values">Set Values</string>
     <string name="channel_name">My Notifications</string>
     <string name="channel_description">Notify user about eye rest time.\t</string>
+    <string name="start_timer">Start Timer</string>
 </resources>

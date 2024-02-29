@@ -7,6 +7,17 @@
     android:padding="35dp"
     tools:context=".MainActivity">
     <TextView
+        android:id="@+id/tvTimeLeft"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/tvScreen"
+        android:text="Working\n00:20:00"
+        android:gravity="center"
+        android:textSize="40sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <TextView
         android:id="@+id/tvScreen"
         android:text="@string/how_long_do_you_stare_at_a_screen"
         android:textStyle=""
@@ -63,5 +74,17 @@
         app:layout_constraintTop_toBottomOf="@id/etRestTime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+
+    <Button
+        android:id="@+id/btnStart"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="2.5dp"
+        android:backgroundTint="#00BCD4"
+        android:text="@string/start_timer"
+        android:textSize="25sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnSubmit" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
