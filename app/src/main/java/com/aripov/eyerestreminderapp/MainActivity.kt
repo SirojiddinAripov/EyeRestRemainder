@@ -36,18 +36,6 @@ class MainActivity : AppCompatActivity(), OnClickListener {
         binding.btnSubmit.setOnClickListener(this)
     }
 
-    fun buildNotification() {
-        var builder = NotificationCompat.Builder(this, CHANNEL_ID)
-            .setSmallIcon(R.drawable.baseline_remove_red_eye_24)
-            .setContentTitle("Time for eyes to rest!")
-            .setStyle(
-                NotificationCompat
-                    .BigTextStyle()
-                    .bigText("Look at something that is 20 meters away from you." +
-                            "Try to focus on small details of that object for ${restLength*60} seconds"))
-            .setPriority(NotificationCompat.PRIORITY_HIGH)
-    }
-
     override fun onClick(view: View?) {
         when(view?.id) {
             R.id.btnSubmit -> {
@@ -61,5 +49,16 @@ class MainActivity : AppCompatActivity(), OnClickListener {
                 }
             }
         }
+    }
+    fun buildNotification() {
+        var builder = NotificationCompat.Builder(this, CHANNEL_ID)
+            .setSmallIcon(R.drawable.baseline_remove_red_eye_24)
+            .setContentTitle("Time for eyes to rest!")
+            .setStyle(
+                NotificationCompat
+                    .BigTextStyle()
+                    .bigText("Look at something that is 20 meters away from you." +
+                            "Try to focus on small details of that object for ${restLength*60} seconds"))
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
     }
 }
