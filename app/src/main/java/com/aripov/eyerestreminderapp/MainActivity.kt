@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity(), OnClickListener {
     private lateinit var binding: ActivityMainBinding
     private var workTimeLength = 20
     private var restLength = 60
-    private var runTimers = true
+    private var runTimers = false
     @RequiresApi(VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,6 +73,17 @@ class MainActivity : AppCompatActivity(), OnClickListener {
                         Toast.LENGTH_SHORT).show()
                 }
             }
+
+            R.id.btnStart -> {
+                if(!runTimers) {
+                    runTimers = true
+                    buildNotification()
+                    binding.btnStart.text = getString(R.string.stop_timer)
+                } else {
+                    runTimers = false
+                    binding.btnStart.text = getString(R.string.start_timer)
+                }
+            }
         }
     }
     private fun buildNotification(): NotificationCompat.Builder {
@@ -89,7 +100,7 @@ class MainActivity : AppCompatActivity(), OnClickListener {
             )
             .setPriority(NotificationCompat.PRIORITY_HIGH)
         var PROGRESS_MAX = workTimeLength*60000
-        var PROGRESS_CURRENT = 0
+        var PROGRESS_CURRENT : Int
 
         NotificationManagerCompat.from(this).apply {
             if (ActivityCompat.checkSelfPermission(
@@ -104,7 +115,8 @@ class MainActivity : AppCompatActivity(), OnClickListener {
                         if((millisUntilFinish%1000).toInt() == 0) {
                             PROGRESS_CURRENT = (PROGRESS_MAX-millisUntilFinish).toInt()
                             builder.setProgress(PROGRESS_MAX, PROGRESS_CURRENT, false)
-                            binding.tvTimeLeft.text = "$title\n $millisUntilFinish"
+                            binding.tvTimeLeft.text =
+                                getString(R.string.tv_main_time_left, title, millisUntilFinish)
                             notify(NOTIFICATION_ID++, builder.build())
                         }
                     }
@@ -126,6 +138,7 @@ class MainActivity : AppCompatActivity(), OnClickListener {
                     }
 
                 }
+                timer.start()
             }
         }
         return builder
