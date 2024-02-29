@@ -61,8 +61,8 @@ class MainActivity : AppCompatActivity(), OnClickListener {
     override fun onClick(view: View?) {
         when(view?.id) {
             R.id.btnSubmit -> {
-                val etWorkTime = binding.etWorkTime.toString().toInt()
-                val etRestTime = binding.etRestTime.toString().toInt()
+                val etWorkTime = binding.etWorkTime.text.toString().toInt()
+                val etRestTime = binding.etRestTime.text.toString().toInt()
                 if(etWorkTime != 0 && etRestTime != 0){
                     workTimeLength = etWorkTime
                     restLength = etRestTime
