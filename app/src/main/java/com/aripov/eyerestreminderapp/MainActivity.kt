@@ -1,6 +1,10 @@
 package com.aripov.eyerestreminderapp
 
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Build.VERSION
 import android.os.Build.VERSION_CODES
 import androidx.appcompat.app.AppCompatActivity
@@ -50,7 +54,7 @@ class MainActivity : AppCompatActivity(), OnClickListener {
             }
         }
     }
-    fun buildNotification() {
+    private fun buildNotification() {
         var builder = NotificationCompat.Builder(this, CHANNEL_ID)
             .setSmallIcon(R.drawable.baseline_remove_red_eye_24)
             .setContentTitle("Time for eyes to rest!")
@@ -60,5 +64,17 @@ class MainActivity : AppCompatActivity(), OnClickListener {
                     .bigText("Look at something that is 20 meters away from you." +
                             "Try to focus on small details of that object for ${restLength*60} seconds"))
             .setPriority(NotificationCompat.PRIORITY_HIGH)
+    }
+
+    private fun createNotificationChannel() {
+        val name = getString(R.string.channel_name)
+        val descriptionText = getString(R.string.channel_description)
+        val importance = NotificationManager.IMPORTANCE_HIGH
+        val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
+            description = descriptionText
+        }
+        val notificationManager : NotificationManager =
+            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.createNotificationChannel(channel)
     }
 }
