@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">EyeRestReminderApp</string>
+    <string name="how_long_do_you_stare_at_a_screen">How long do you stare at a screen?</string>
+    <string name="how_long_do_you_want_to_rest_your_eyes">How long do you want to rest your eyes?</string>
+    <string name="enter_the_value_in_minutes">Enter the value in minutes.</string>
+    <string name="enter_the_value_in_seconds">Enter the value in seconds.</string>
+    <string name="set_values">Set Values</string>
 </resources>
