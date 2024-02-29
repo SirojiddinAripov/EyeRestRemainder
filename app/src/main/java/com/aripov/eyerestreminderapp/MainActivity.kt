@@ -86,6 +86,7 @@ class MainActivity : AppCompatActivity(), OnClickListener {
             }
         }
     }
+    @SuppressLint("MissingPermission")
     private fun buildNotification(): NotificationCompat.Builder {
         var title = WORK_TITLE
         var bigText = WORK_DESCRIPTION
@@ -99,48 +100,12 @@ class MainActivity : AppCompatActivity(), OnClickListener {
                     .bigText(bigText)
             )
             .setPriority(NotificationCompat.PRIORITY_HIGH)
-        var PROGRESS_MAX = workTimeLength*60000
-        var PROGRESS_CURRENT : Int
 
-        NotificationManagerCompat.from(this).apply {
-            if (ActivityCompat.checkSelfPermission(
-                    this@MainActivity,
-                    Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
-                val timer = object: CountDownTimer(PROGRESS_MAX.toLong(), 0){
-                    @SuppressLint("MissingPermission")
-                    override fun onTick(millisUntilFinish: Long) {
-                        if(!runTimers) {
-                            return
-                        }
-                        if((millisUntilFinish%1000).toInt() == 0) {
-                            PROGRESS_CURRENT = (PROGRESS_MAX-millisUntilFinish).toInt()
-                            builder.setProgress(PROGRESS_MAX, PROGRESS_CURRENT, false)
-                            binding.tvTimeLeft.text =
-                                getString(R.string.tv_main_time_left, title, millisUntilFinish)
-                            notify(NOTIFICATION_ID++, builder.build())
-                        }
-                    }
-
-                    override fun onFinish() {
-                        if(title == WORK_TITLE) {
-                            title = REST_TITLE
-                            bigText = REST_DESCRIPTION
-                            PROGRESS_MAX = restLength*1000
-                        } else {
-                            title = WORK_TITLE
-                            bigText = WORK_DESCRIPTION
-                            PROGRESS_MAX = workTimeLength*60000
-                        }
-                        PROGRESS_CURRENT = 0
-                        if(runTimers) {
-                           buildNotification()
-                        }
-                    }
-
-                }
-                timer.start()
-            }
+        with(NotificationManagerCompat.from(this@MainActivity)) {
+            notify(NOTIFICATION_ID++, builder.build())
         }
+
+        TODO("Track time difference instead of countdown bing bing bing bong!")
         return builder
     }
 
